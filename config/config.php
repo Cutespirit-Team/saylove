@@ -1,0 +1,23 @@
+<?php
+$CONFIG = array (
+  'trusted_domains' => '*.cutespirit.org',
+  'dbtype' => 'mysql',
+  'version' => 'v1.0',
+  'dbname' => '填入資料庫名稱',
+  'dbhost' => '填入資料庫地址',
+  'dbport' => '填入資料庫端口',
+  'dbuser' => '填入資料庫使用者',
+  'dbpassword' => '填入資料庫密碼',
+  'mail_smtpmode' => 'smtp',
+  'mail_smtpsecure' => 'tls',
+  'mail_sendmailmode' => 'smtp',
+  'mail_from_address' => 'service',
+  'mail_domain' => '',
+  'mail_smtpauthtype' => 'LOGIN',
+  'mail_smtpauth' => 1,
+  'mail_smtphost' => 'mail.gandi.net',
+  'mail_smtpport' => '587',
+  'mail_smtpname' => '',
+  'mail_smtppassword' => '',
+  'default_language' => 'zh_TW',
+);

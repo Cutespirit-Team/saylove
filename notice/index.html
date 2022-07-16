@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading&预警提示层js插件</title>
+ 
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./dist/notice.min.css">
+    <link rel="stylesheet"
+          href="css/default.min.css">
+    <style>
+        #carbonads a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+            #carbonads a:hover {
+                color: #fff;
+            }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1 class="text">Loading&预警提示层js插件</h1>
+         
+     
+        <section>
+            <h2 class="text">Loading</h2>
+            <div class="list">
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Default</h3>
+                        <button onclick="showLoading()">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading();
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (dots)</h3>
+                        <button onclick="showLoading({type: 'dots'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    type: 'dots'  // default：'line'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (dots_zoom)</h3>
+                        <button onclick="showLoading({type: 'dots_zoom'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    type: 'dots_zoom'  // default：'line'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (dots_spin)</h3>
+                        <button onclick="showLoading({type: 'dots_spin'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    type: 'dots_spin'  // default：'line'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (cube_flip)</h3>
+                        <button onclick="showLoading({type: 'cube_flip'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    type: 'cube_flip'  // default：'line'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (cube_zoom)</h3>
+                        <button onclick="showLoading({type: 'cube_zoom'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    type: 'cube_zoom'  // default：'line'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Text</h3>
+                        <button onclick="showLoading({title: 'Loading'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    title: 'Loading'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Font Size</h3>
+                        <button onclick="showLoading({title: 'Loading',fontSize: 20})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    title: 'Loading',
+    fontSize: 20,
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Color</h3>
+                        <button onclick="showLoading({title: 'Loading',color: '#333', backgroundColor: 'rgba(255,255,255,.6)'})">Show</button>
+                    </div>
+                    <pre><code>notice.showLoading({
+    title: 'Loading',
+    color: '#333',
+    backgroundColor: 'rgba(255,255,255,.6)'
+});
+setTimeout(() => {
+    notice.hideLoading()
+},3000)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text">Toast</h2>
+            <div class="list">
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Default</h3>
+                        <button onclick="showMessage({text: 'This is a message.'})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a message.'  // It must be filled in, otherwise it will not be displayed
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (success)</h3>
+                        <button onclick="showMessage({text: 'This is a success message.',type: 'success'})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a success message.',
+    type: 'success'
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (error)</h3>
+                        <button onclick="showMessage({text: 'This is a error message.',type: 'error'})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a error message.',
+    type: 'error'
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (info)</h3>
+                        <button onclick="showMessage({text: 'This is a info message.',type: 'info'})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a info message.',
+    type: 'info'
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set Type (warning)</h3>
+                        <button onclick="showMessage({text: 'This is a warning message.',type: 'warning'})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a warning message.',
+    type: 'warning'
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set ShowClose</h3>
+                        <button onclick="showMessage({text: 'This is a message.',type: 'success',showClose: true})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a message.',
+    type: 'success',
+    showClose: true,   // default false
+});</code></pre>
+                </div>
+
+                <div class="item">
+                    <div class="item-header">
+                        <h3>Set AutoClose</h3>
+                        <button onclick="showMessage({text: 'This is a message.',type: 'success',showClose: true, autoClose: false})">Show</button>
+                    </div>
+                    <pre><code>notice.showToast({
+    text: 'This is a message.',
+    type: 'success',
+    showClose: true,
+    autoClose: false,   // default true
+});</code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <script src="./dist/notice.min.js"></script>
+    <script>
+        const notice = new Notice();
+    </script>
+
+    <script src="./js/main.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,13 @@
+php: /usr/local/lib/libcurl.so.4: no version information available (required by php)
+PHP Warning:  require_once(/www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/vendor/autoload.php): Failed to open stream: No such file or directory in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php on line 29
+
+Warning: require_once(/www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/vendor/autoload.php): Failed to open stream: No such file or directory in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php on line 29
+PHP Fatal error:  Uncaught Error: Failed opening required '/www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/vendor/autoload.php' (include_path='.:') in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php:29
+Stack trace:
+#0 {main}
+  thrown in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php on line 29
+
+Fatal error: Uncaught Error: Failed opening required '/www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/vendor/autoload.php' (include_path='.:') in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php:29
+Stack trace:
+#0 {main}
+  thrown in /www/wwwroot/saylove.cutespirit.org/chat/workerman-chat/start.php on line 29

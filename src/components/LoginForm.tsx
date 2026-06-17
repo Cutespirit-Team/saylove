@@ -3,26 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowser } from "@/lib/supabase/client";
+import { showToast } from "@/lib/toast";
 
 // 前端登入：不走整頁 POST，避免登入後整頁重載（轉圈）。
 // 成功後以 client-side 導向首頁，並 refresh 讓導覽列更新登入狀態。
-function showToast(text: string, type: "warning" | "success") {
-  const run = () => {
-    if (window.Notice) new window.Notice().showToast({ text, type });
-  };
-  if (window.Notice) return run();
-  const existing = document.getElementById("notice-lib");
-  if (existing) {
-    existing.addEventListener("load", run);
-    return;
-  }
-  const s = document.createElement("script");
-  s.id = "notice-lib";
-  s.src = "/notice/dist/notice.min.js";
-  s.onload = run;
-  document.body.appendChild(s);
-}
-
+// 「登入成功」提示在前端直接顯示，不放進網址（避免反射型攻擊）。
 export default function LoginForm({ header, chatUrl }: { header?: string; chatUrl: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -48,8 +33,9 @@ export default function LoginForm({ header, chatUrl }: { header?: string; chatUr
       window.location.href = chatUrl;
       return;
     }
-    // client-side 導向 + 重新整理 server 元件（讓 layout 的導覽列更新為已登入）
-    router.replace("/?success=登入成功!");
+    // 成功提示在前端直接顯示（不經網址），再 client-side 導向首頁 + 更新導覽列
+    showToast("登入成功!", "success");
+    router.replace("/");
     router.refresh();
   }
 

@@ -2,43 +2,18 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { showToast } from "@/lib/toast";
 
-// 重現原本各頁 ?error= / ?success= 觸發的 notice.showToast 行為。
-declare global {
-  interface Window {
-    Notice?: new () => { showToast: (o: { text: string; type: string }) => void };
-  }
-}
-
-function ensureNoticeScript(): Promise<void> {
-  return new Promise((resolve) => {
-    if (window.Notice) return resolve();
-    const existing = document.getElementById("notice-lib");
-    if (existing) {
-      existing.addEventListener("load", () => resolve());
-      return;
-    }
-    const s = document.createElement("script");
-    s.id = "notice-lib";
-    s.src = "/notice/dist/notice.min.js";
-    s.onload = () => resolve();
-    document.body.appendChild(s);
-  });
-}
-
+// 顯示由伺服器導向帶來的 ?error= / ?success= 提示。
+// 文字經 showToast 內的 HTML 跳脫處理，避免反射型 XSS。
 export default function FlashNotice() {
   const params = useSearchParams();
   const error = params.get("error");
   const success = params.get("success");
 
   useEffect(() => {
-    if (!error && !success) return;
-    ensureNoticeScript().then(() => {
-      if (!window.Notice) return;
-      const notice = new window.Notice();
-      if (error) notice.showToast({ text: error, type: "warning" });
-      if (success) notice.showToast({ text: success, type: "success" });
-    });
+    if (error) showToast(error, "warning");
+    if (success) showToast(success, "success");
   }, [error, success]);
 
   return null;

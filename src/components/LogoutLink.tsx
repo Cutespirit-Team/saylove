@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowser } from "@/lib/supabase/client";
+import { showToast } from "@/lib/toast";
 
 // 前端登出：不走整頁 route handler，避免登出後整頁重載（轉圈）。
 export default function LogoutLink() {
@@ -11,8 +12,9 @@ export default function LogoutLink() {
     e.preventDefault();
     const supabase = createSupabaseBrowser();
     await supabase.auth.signOut();
-    // client-side 導向 + 重新整理 server 元件（讓導覽列更新為未登入）
-    router.replace("/?success=登出成功!");
+    // 成功提示在前端直接顯示（不經網址），再 client-side 導向 + 更新導覽列
+    showToast("登出成功!", "success");
+    router.replace("/");
     router.refresh();
   }
 

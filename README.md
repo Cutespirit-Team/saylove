@@ -1,7 +1,7 @@
 # 全國高中暈船告白牆（重構版）
 
 <p align="center">
-    <img src="public/img/saylove.svg" alt="saylove" width="320" />
+    <img src="public/img/saylove.svg"></img>
 </p>
 <p align="center">
     <a href="https://saylove.bityo.tw">saylove.bityo.tw</a> ·

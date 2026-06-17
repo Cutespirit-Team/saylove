@@ -1,19 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { validate } from "@/lib/sanitize";
 
-// 對應 php/delete-post.php：管理員刪除貼文（回 JSON）。
+// 刪除貼文（回 JSON）。權限交給 RLS：本人可刪自己的、管理員可刪任何。
 export async function POST(req: NextRequest) {
-  const admin = await getAdminProfile();
-  if (!admin) return NextResponse.json({ ok: false, message: "沒有權限" }, { status: 403 });
+  const supabase = await getSupabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ ok: false, message: "請先登入" }, { status: 401 });
 
   const form = await req.formData();
   const id = validate(String(form.get("id") ?? ""));
   if (!id) return NextResponse.json({ ok: false, message: "缺少 id" }, { status: 400 });
 
-  const supabase = await getSupabaseServer();
-  const { error } = await supabase.from("posts").delete().eq("id", Number(id));
+  // RLS 會擋掉沒有權限的刪除（不會報錯,但刪到 0 列）。用 select 確認是否真的刪掉。
+  const { data, error } = await supabase.from("posts").delete().eq("id", Number(id)).select("id");
   if (error) return NextResponse.json({ ok: false, message: "刪除失敗" }, { status: 500 });
-  return NextResponse.json({ ok: true, message: "成功刪除" });
+  if (!data || data.length === 0)
+    return NextResponse.json({ ok: false, message: "沒有權限刪除這篇貼文" }, { status: 403 });
+  return NextResponse.json({ ok: true, message: "已刪除貼文" });
 }

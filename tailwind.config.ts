@@ -10,7 +10,18 @@ const config: Config = {
   },
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        "confirm-fade": { from: { opacity: "0" } },
+        "confirm-pop": {
+          from: { opacity: "0", transform: "scale(0.96) translateY(6px)" },
+        },
+      },
+      animation: {
+        "confirm-fade": "confirm-fade 0.15s ease-out",
+        "confirm-pop": "confirm-pop 0.16s cubic-bezier(0.2, 0.8, 0.3, 1)",
+      },
+    },
   },
   plugins: [],
 };

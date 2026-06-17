@@ -4,6 +4,7 @@ import { DEFAULT_AVATAR } from "./defaultAvatar";
 import CopyLinkButton from "./CopyLinkButton";
 import LikeButton from "./LikeButton";
 import CommentForm from "./CommentForm";
+import PostMenu from "./PostMenu";
 
 // 重現 index.php / posts.php / userpost.php 共用的告白卡片。
 export default function PostCard({
@@ -22,6 +23,9 @@ export default function PostCard({
   const siteUrl = process.env.SITE_URL || "http://localhost:3000";
   const shareLink = `${siteUrl}/userpost?id=${post.id}`;
   const likesNum = Number(post.likes) > 0 ? `${post.likes}likes` : "0 likes";
+  // 作者本人或管理員可刪這篇貼文
+  const canDelete =
+    !!viewer && (viewer.id === post.author_id || viewer.identity === "admin");
 
   // 留言區頭像（依當前登入者性別）
   let viewerAvatar: React.ReactNode;
@@ -60,8 +64,7 @@ export default function PostCard({
               </h3>
             </div>
             <div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/dot.png" className="dotpost" alt="" />
+              <PostMenu postid={post.id} canDelete={canDelete} />
             </div>
           </div>
           <div className="messagepost">

@@ -139,7 +139,8 @@ drop policy if exists profiles_delete on public.profiles;
 create policy profiles_delete on public.profiles
   for delete using (public.is_admin());
 
--- posts：公開可讀；登入者可發（author_id 必須是自己）；管理員可改/刪
+-- posts：公開可讀；登入者可發（author_id 必須是自己）；
+-- 本人可刪自己的貼文，管理員可改/刪任何貼文
 drop policy if exists posts_select on public.posts;
 create policy posts_select on public.posts
   for select using (true);
@@ -154,7 +155,7 @@ create policy posts_update on public.posts
 
 drop policy if exists posts_delete on public.posts;
 create policy posts_delete on public.posts
-  for delete using (public.is_admin());
+  for delete using (auth.uid() = author_id or public.is_admin());
 
 -- message：公開可讀；登入者可留言（author_id 必須是自己）；管理員可刪
 drop policy if exists message_select on public.message;

@@ -108,7 +108,11 @@ export default async function SiteShell({ children }: { children: React.ReactNod
                         <input type="text" placeholder="搜尋您的高中..." />
                         <div className="autocom-box"></div>
                         <div className="icon">
-                          <i className="fas fa-search"></i>
+                          {/* 內嵌放大鏡 SVG（取代會被擋的 fontawesome kit） */}
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                          </svg>
                         </div>
                       </div>
                     </div>
@@ -122,7 +126,6 @@ export default async function SiteShell({ children }: { children: React.ReactNod
                   strategy="afterInteractive"
                   dangerouslySetInnerHTML={{ __html: `let suggestions = ${suggestionsLiteral};` }}
                 />
-                <Script src="https://kit.fontawesome.com/a076d05399.js" strategy="afterInteractive" />
                 <Script src="/search.next.js" strategy="afterInteractive" />
 
                 <ul className="nav navbar-nav">

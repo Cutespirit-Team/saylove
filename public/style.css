@@ -2,7 +2,7 @@
 
 @font-face {
 font-family:"Name-Of-Font";
-src: url("http://saylove.cutespirit.org/fonts/Miao.woff") format("woff");
+src: url("/fonts/Miao.woff") format("woff");
 }
 html, body {
    height: 100%;

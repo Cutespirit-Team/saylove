@@ -8,6 +8,7 @@ import "./globals.css";
 // 對應原 header.php 的 <head>：bootstrap.css、style.css、cutegirl.js
 export const metadata: Metadata = {
   title: "全國高中告白牆",
+  icons: { icon: "/img/saylove.svg" },
 };
 
 export const viewport = {

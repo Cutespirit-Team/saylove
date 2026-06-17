@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { postForm } from "@/lib/clientApi";
 import { showToast } from "@/lib/toast";
+import SchoolSelect from "@/components/SchoolSelect";
 import type { SchoolEntry } from "@/lib/school";
 
 // 更新個人資料：前端送出,不重載。
@@ -58,17 +59,8 @@ export default function ProfileForm({
         </label>
       </div>
       <div className="form-group">
-        <label className="label_name">
-          高中:
-          <select name="school" id="school" required className="selector" defaultValue={schoolDefault}>
-            <option value="0">請選擇高中</option>
-            {schools.map((s, i) => (
-              <option key={`${s.code}-${i}`} value={s.code}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </label>
+        <label className="label_name">高中:</label>
+        <SchoolSelect name="school" schools={schools} defaultCode={schoolDefault} />
       </div>
       <button type="submit" className="btn btn-primary" name="update" disabled={busy}>
         更新以上資料

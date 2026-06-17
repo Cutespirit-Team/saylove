@@ -17,7 +17,8 @@ export default async function HomePage() {
   ]);
   const posts = (postsRes.data as PostRow[]) ?? [];
   const cards = await buildCards(posts, profile?.id ?? null);
-  const chatUrl = process.env.CHAT_URL || "https://chat.cutespirit.org/";
+  // 右下角聊天室先停用
+  // const chatUrl = process.env.CHAT_URL || "https://chat.cutespirit.org/";
 
   return (
     <>
@@ -41,6 +42,7 @@ export default async function HomePage() {
                 />
               ))}
             </div>
+            {/* 右下角聊天室先註解掉
             <div className="col-sm-7">
               <iframe
                 src={chatUrl}
@@ -49,6 +51,7 @@ export default async function HomePage() {
                 style={{ border: "none", position: "fixed" }}
               ></iframe>
             </div>
+            */}
           </div>
         </div>
       </div>

@@ -20,8 +20,6 @@ export default function PostCard({
   liked: boolean;
   messages: MessageRow[];
 }) {
-  const siteUrl = process.env.SITE_URL || "http://localhost:3000";
-  const shareLink = `${siteUrl}/userpost?id=${post.id}`;
   const likesNum = Number(post.likes) > 0 ? `${post.likes}likes` : "0 likes";
   // 作者本人或管理員可修改 / 刪除這篇貼文
   const canManage =
@@ -81,7 +79,7 @@ export default function PostCard({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/img/comment.png" alt="" />
               {/* 分享按鈕本身就是「複製文章連結」 */}
-              <CopyLinkButton link={shareLink} />
+              <CopyLinkButton path={`/userpost?id=${post.id}`} />
             </div>
             <div style={{ float: "right" }}>
               {/* 未登入不顯示收藏 */}

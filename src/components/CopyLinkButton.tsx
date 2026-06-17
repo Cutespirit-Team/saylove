@@ -2,9 +2,10 @@
 
 import { showToast } from "@/lib/toast";
 
-// 分享按鈕：點一下複製文章連結（取代原本獨立的「點我複製文章連結」按鈕）。
-export default function CopyLinkButton({ link }: { link: string }) {
+// 分享按鈕：點一下複製文章連結。連結用使用者當下的網域組成(不靠伺服器 env)。
+export default function CopyLinkButton({ path }: { path: string }) {
   const onClick = () => {
+    const link = (typeof window !== "undefined" ? window.location.origin : "") + path;
     const done = () => showToast("已複製文章連結", "success");
     const fallback = () => {
       const textArea = document.createElement("textarea");

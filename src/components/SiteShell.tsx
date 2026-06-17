@@ -163,17 +163,11 @@ export default async function SiteShell({ children }: { children: React.ReactNod
             </div>
             {/* /top nav */}
 
-            {children}
+            <div className="site-content">{children}</div>
 
-            {/* ===== footer.php ===== */}
-            <br />
-            <div style={{ height: "2px" }}>
-              <div className="row" id="footer" style={{ float: "right" }}>
-                <a href="#" className="pull-right">
-                  © 2022 CUTESPIRIT
-                </a>
-              </div>
-              <div className="row" id="footer" style={{ float: "left" }}>
+            {/* ===== footer.php（改成乾淨置中、置底，不再用 float + 2px 高的破版寫法）===== */}
+            <footer className="site-footer" id="footer">
+              <div className="site-footer__links">
                 <a href="https://github.com/Cutespirit-Team">Github</a>{" "}
                 <small className="text-muted">|</small>{" "}
                 <a href="https://fb.cutespirit.org">Facebook</a>{" "}
@@ -192,17 +186,16 @@ export default async function SiteShell({ children }: { children: React.ReactNod
                 <small className="text-muted">|</small>{" "}
                 <Link href="/instructions/api">API</Link>{" "}
                 <small className="text-muted">|</small>{" "}
-                <Link href="/instructions/terms_of_use">使用條款</Link>{" "}
-                <small className="text-muted">|</small>{" "}
+                <Link href="/instructions/terms_of_use">使用條款</Link>
               </div>
-            </div>
-            <hr />
-            <h4 className="text-center">
-              <a href="" target="ext">
-                hamigua//TershiXia
-              </a>
-            </h4>
-            <hr />
+              <div className="site-footer__copy">© 2022 CUTESPIRIT</div>
+              <hr />
+              <h4 className="text-center">
+                <a href="" target="ext">
+                  hamigua//TershiXia
+                </a>
+              </h4>
+            </footer>
           </div>
           {/* /main */}
         </div>

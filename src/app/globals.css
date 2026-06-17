@@ -23,3 +23,30 @@
     transform: rotate(360deg);
   }
 }
+
+/* 讓頁尾固定在畫面最底下：#main 以 flex 直向排列，內容撐開、頁尾置底 */
+#main {
+  display: flex;
+  flex-direction: column;
+}
+.site-content {
+  flex: 1 0 auto;
+}
+.site-footer {
+  flex-shrink: 0;
+  clear: both;
+  width: 100%;
+  text-align: center;
+  padding: 12px 15px 20px;
+  line-height: 1.9;
+}
+.site-footer .site-footer__links a {
+  white-space: nowrap;
+}
+.site-footer .site-footer__copy {
+  margin-top: 6px;
+  color: #777;
+}
+.site-footer hr {
+  margin: 12px 0;
+}

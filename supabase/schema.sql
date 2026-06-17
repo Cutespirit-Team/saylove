@@ -151,7 +151,8 @@ create policy posts_insert on public.posts
 
 drop policy if exists posts_update on public.posts;
 create policy posts_update on public.posts
-  for update using (public.is_admin()) with check (public.is_admin());
+  for update using (auth.uid() = author_id or public.is_admin())
+  with check (auth.uid() = author_id or public.is_admin());
 
 drop policy if exists posts_delete on public.posts;
 create policy posts_delete on public.posts

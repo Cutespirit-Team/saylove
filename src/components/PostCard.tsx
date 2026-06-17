@@ -23,8 +23,8 @@ export default function PostCard({
   const siteUrl = process.env.SITE_URL || "http://localhost:3000";
   const shareLink = `${siteUrl}/userpost?id=${post.id}`;
   const likesNum = Number(post.likes) > 0 ? `${post.likes}likes` : "0 likes";
-  // 作者本人或管理員可刪這篇貼文
-  const canDelete =
+  // 作者本人或管理員可修改 / 刪除這篇貼文
+  const canManage =
     !!viewer && (viewer.id === post.author_id || viewer.identity === "admin");
 
   // 留言區頭像（依當前登入者性別）
@@ -64,7 +64,7 @@ export default function PostCard({
               </h3>
             </div>
             <div>
-              <PostMenu postid={post.id} canDelete={canDelete} />
+              <PostMenu postid={post.id} sentence={post.sentence ?? ""} canManage={canManage} />
             </div>
           </div>
           <div className="messagepost">

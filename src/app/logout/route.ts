@@ -5,5 +5,5 @@ import { getSupabaseServer } from "@/lib/supabase/server";
 export async function GET() {
   const supabase = await getSupabaseServer();
   await supabase.auth.signOut();
-  return redirectTo("/?success=登出成功!");
+  return redirectTo("/");
 }

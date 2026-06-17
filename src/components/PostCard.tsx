@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { PostRow, MessageRow, ProfileRow } from "@/lib/types";
 import { DEFAULT_AVATAR } from "./defaultAvatar";
 import CopyLinkButton from "./CopyLinkButton";
+import LikeButton from "./LikeButton";
+import CommentForm from "./CommentForm";
 
 // 重現 index.php / posts.php / userpost.php 共用的告白卡片。
 export default function PostCard({
@@ -70,20 +72,7 @@ export default function PostCard({
           </div>
           <div className="actionBtnspost">
             <div style={{ float: "left" }}>
-              <form action="/api/likes" method="post">
-                <input type="hidden" name="messagelikes" defaultValue="YES" className="textpost" />
-                <input type="hidden" name="school" defaultValue={post.school ?? ""} className="textpost" />
-                <input type="hidden" name="postid" defaultValue={String(post.id)} className="textpost" />
-                <button style={{ border: "none", backgroundColor: "transparent", float: "left" }}>
-                  {liked ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src="/img/heart_red.png" className="heartpost" alt="" />
-                  ) : (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src="/img/heart.png" className="heartpost" alt="" />
-                  )}
-                </button>
-              </form>
+              <LikeButton postid={post.id} school={post.school ?? ""} liked={liked} />
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/img/comment.png" alt="" />
@@ -114,23 +103,7 @@ export default function PostCard({
             <h4 className="commentspost">查看更多</h4>
             <div className="addCommentspost">
               <div className="userImgpost">{viewerAvatar}</div>
-              <form action="/api/message" method="post">
-                <input
-                  type="text"
-                  name="message"
-                  className="textpost"
-                  placeholder={loggedIn ? "留言..." : "請先登入才能留言喔!"}
-                  spellCheck={false}
-                  data-ms-editor="true"
-                  required
-                  readOnly={!loggedIn}
-                />
-                <input type="hidden" name="postid" defaultValue={String(post.id)} className="textpost" />
-                <input type="hidden" name="school" defaultValue={post.school ?? ""} className="textpost" />
-                <button className="sqdOP yWX7d    y3zKF     " type="submit" disabled={!loggedIn}>
-                  <div className="_7UhW9   xLCgt        qyrsm      gtFbE     uL8Hv        T0kll ">發佈</div>
-                </button>
-              </form>
+              <CommentForm postid={post.id} school={post.school ?? ""} loggedIn={loggedIn} />
             </div>
             <h5 className="posTime">{post.posttime}</h5>
           </div>

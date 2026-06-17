@@ -1,6 +1,4 @@
-import { Suspense } from "react";
 import Link from "next/link";
-import FlashNotice from "@/components/FlashNotice";
 import LoginForm from "@/components/LoginForm";
 
 export const dynamic = "force-dynamic";
@@ -15,9 +13,6 @@ export default async function LoginPage({
   const chatUrl = process.env.CHAT_URL || "https://chat.cutespirit.org/";
   return (
     <>
-      <Suspense fallback={null}>
-        <FlashNotice />
-      </Suspense>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">

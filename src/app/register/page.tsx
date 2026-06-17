@@ -1,6 +1,5 @@
-import { Suspense } from "react";
 import Link from "next/link";
-import FlashNotice from "@/components/FlashNotice";
+import RegisterForm from "@/components/RegisterForm";
 
 export const dynamic = "force-dynamic";
 
@@ -8,9 +7,6 @@ export const dynamic = "force-dynamic";
 export default function RegisterPage() {
   return (
     <>
-      <Suspense fallback={null}>
-        <FlashNotice />
-      </Suspense>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -29,29 +25,7 @@ export default function RegisterPage() {
                         />
                       </center>
                       <div className="form">
-                        <form action="/api/checksignup" method="post">
-                          <div className="input_field">
-                            <input type="text" placeholder="姓名" name="name" className="input" />
-                          </div>
-                          <div className="input_field">
-                            <input type="email" placeholder="電子郵件" name="email" className="input" />
-                          </div>
-                          <div className="input_field">
-                            <input
-                              type="password"
-                              placeholder="密碼"
-                              id="password-field"
-                              name="password"
-                              className="input"
-                            />
-                          </div>
-                          <div className="input_field">
-                            <input type="password" placeholder="確認密碼" name="re_password" className="input" />
-                          </div>
-                          <button className="btn_love" type="submit">
-                            註冊
-                          </button>
-                        </form>
+                        <RegisterForm />
                       </div>
                       <div className="or">
                         <div className="line"></div>

@@ -1,16 +1,16 @@
-import { NextRequest } from "next/server";
-import { redirectTo, dateYmd, dateYmdHis } from "@/lib/redirect";
+import { NextRequest, NextResponse } from "next/server";
+import { dateYmd, dateYmdHis } from "@/lib/redirect";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { htmlentities, replaceIllegal, ILLEGAL_SENTENCE_SEMI } from "@/lib/sanitize";
 import type { ProfileRow } from "@/lib/types";
 
-// 對應 php/updateposts.php：發布貼文
+// 對應 php/updateposts.php：發布貼文（回 JSON,前端不重載）。
 export async function POST(req: NextRequest) {
   const supabase = await getSupabaseServer();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return new Response("沒有您的資料，請聯繫管理員");
+  if (!user) return NextResponse.json({ ok: false, message: "請先登入" }, { status: 401 });
 
   const { data: profileData } = await supabase
     .from("profiles")
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     .eq("id", user.id)
     .maybeSingle();
   const profile = profileData as ProfileRow | null;
-  if (!profile) return new Response("沒有您的資料，請聯繫管理員");
+  if (!profile) return NextResponse.json({ ok: false, message: "沒有您的資料,請聯繫管理員" }, { status: 400 });
 
   const form = await req.formData();
   let sentence = htmlentities(String(form.get("sentence") ?? ""));
@@ -30,10 +30,10 @@ export async function POST(req: NextRequest) {
 
   sentence = replaceIllegal(sentence, ILLEGAL_SENTENCE_SEMI);
 
-  if (!name) return redirectTo("/upload_posts?error=姓名未填，請至個人資料頁面設定");
-  if (!sentence) return redirectTo("/upload_posts?error=想說的話未填");
-  if (!schoolcode) return redirectTo("/upload_posts?error=錯誤!，未知的學校，請至個人中心重新選取學校或請聯繫管理員");
-  if (!school) return redirectTo("/upload_posts?error=錯誤!，未知的學校，，請至個人中心重新選取學校請聯繫管理員");
+  if (!name) return NextResponse.json({ ok: false, message: "姓名未填,請至個人資料設定" }, { status: 400 });
+  if (!sentence) return NextResponse.json({ ok: false, message: "想說的話未填" }, { status: 400 });
+  if (!schoolcode || !school)
+    return NextResponse.json({ ok: false, message: "請先到個人資料選擇學校" }, { status: 400 });
 
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     date: postdetails,
   });
   if (error) {
-    return redirectTo(`/upload_posts?error=請調整文章格式，如持續錯誤，請立即連絡我們!&sentence=${sentence}`);
+    return NextResponse.json({ ok: false, message: "發佈失敗,請調整文章格式後再試" }, { status: 500 });
   }
-  return redirectTo("/?success=發佈成功");
+  return NextResponse.json({ ok: true });
 }

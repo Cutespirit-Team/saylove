@@ -2,17 +2,13 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
+import DeleteButton from "@/components/DeleteButton";
 import type { PostRow } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 // 對應 manageposts.php：貼文管理列表
-export default async function ManagePostsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ success?: string }>;
-}) {
-  const { success } = await searchParams;
+export default async function ManagePostsPage() {
   const admin = await getAdminProfile();
   if (!admin) redirect("/");
 
@@ -30,11 +26,6 @@ export default async function ManagePostsPage({
                 <div className="box weight auto">
                   <h4 className="pgtitle center">貼文管理</h4>
                   <br />
-                  {success && (
-                    <div className="alert alert-success" role="alert">
-                      {success}
-                    </div>
-                  )}
                   {posts.length > 0 && (
                     <table className="table table-striped">
                       <thead>
@@ -59,9 +50,7 @@ export default async function ManagePostsPage({
                               <Link href={`/update-post?id=${row.id}`} className="btn btn-success">
                                 更新資料
                               </Link>{" "}
-                              <a href={`/api/delete-post?id=${row.id}`} className="btn btn-danger">
-                                刪除
-                              </a>
+                              <DeleteButton url="/api/delete-post" id={row.id} confirmText="確定刪除這篇貼文?" />
                             </td>
                           </tr>
                         ))}

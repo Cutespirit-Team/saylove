@@ -2,17 +2,13 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
+import DeleteButton from "@/components/DeleteButton";
 import type { ProfileRow } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
 // 對應 manageuser.php：會員列表
-export default async function ManageUserPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ success?: string }>;
-}) {
-  const { success } = await searchParams;
+export default async function ManageUserPage() {
   const admin = await getAdminProfile();
   if (!admin) redirect("/");
 
@@ -32,11 +28,6 @@ export default async function ManageUserPage({
                     <div className="box">
                       <h4 className="display-4 text-center">會員列表</h4>
                       <br />
-                      {success && (
-                        <div className="alert alert-success" role="alert">
-                          {success}
-                        </div>
-                      )}
                       {users.length > 0 && (
                         <table className="table table-striped">
                           <thead>
@@ -57,9 +48,7 @@ export default async function ManageUserPage({
                                   <Link href={`/update-user?id=${row.id}`} className="btn btn-success">
                                     更新資料
                                   </Link>{" "}
-                                  <a href={`/api/delete-user?id=${row.id}`} className="btn btn-danger">
-                                    刪除
-                                  </a>
+                                  <DeleteButton url="/api/delete-user" id={row.id} confirmText="確定刪除這位會員?" />
                                 </td>
                               </tr>
                             ))}

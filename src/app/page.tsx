@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-import FlashNotice from "@/components/FlashNotice";
 import PostCard from "@/components/PostCard";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/auth";
@@ -22,9 +20,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <Suspense fallback={null}>
-        <FlashNotice />
-      </Suspense>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">

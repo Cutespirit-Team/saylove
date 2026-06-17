@@ -75,17 +75,20 @@ export default function PostCard({
           </div>
           <div className="actionBtnspost">
             <div style={{ float: "left" }}>
-              <LikeButton postid={post.id} school={post.school ?? ""} liked={liked} />
+              {/* 未登入不顯示愛心 */}
+              {loggedIn && <LikeButton postid={post.id} school={post.school ?? ""} liked={liked} />}
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/img/comment.png" alt="" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/share.png" alt="" />
+              {/* 分享按鈕本身就是「複製文章連結」 */}
               <CopyLinkButton link={shareLink} />
             </div>
             <div style={{ float: "right" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/bookmark.png" alt="" />
+              {/* 未登入不顯示收藏 */}
+              {loggedIn && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src="/img/bookmark.png" alt="" />
+              )}
             </div>
             <br />
             <br />

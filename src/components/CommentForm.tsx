@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { postForm } from "@/lib/clientApi";
 import { showToast } from "@/lib/toast";
 
@@ -20,9 +21,18 @@ export default function CommentForm({
   const [pending, startTransition] = useTransition();
   const [busy, setBusy] = useState(false);
 
+  // 未登入：不顯示輸入框,改成提示文字（連到登入頁）
+  if (!loggedIn) {
+    return (
+      <Link href="/login" style={{ color: "#888", fontSize: "14px", textDecoration: "none" }}>
+        請先登入才能留言喔!
+      </Link>
+    );
+  }
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!loggedIn || busy || pending) return;
+    if (busy || pending) return;
     if (!value.trim()) return;
     setBusy(true);
     const fd = new FormData();

@@ -1,4 +1,3 @@
-import SiteShell from "@/components/SiteShell";
 import PostCard from "@/components/PostCard";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/auth";
@@ -16,15 +15,17 @@ export default async function UserPostPage({
   const { id: idParam } = await searchParams;
   const postid = Number(idParam);
   const supabase = await getSupabaseServer();
-  const profile = await getCurrentProfile();
-
-  const posts = Number.isFinite(postid)
-    ? (((await supabase.from("posts").select("*").eq("id", postid)).data as PostRow[]) ?? [])
-    : [];
+  const [profile, postsRes] = await Promise.all([
+    getCurrentProfile(),
+    Number.isFinite(postid)
+      ? supabase.from("posts").select("*").eq("id", postid)
+      : Promise.resolve({ data: [] as PostRow[] }),
+  ]);
+  const posts = (postsRes.data as PostRow[]) ?? [];
   const cards = await buildCards(posts, profile?.id ?? null);
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -45,6 +46,6 @@ export default async function UserPostPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

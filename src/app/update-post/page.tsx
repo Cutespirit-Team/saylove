@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import type { PostRow } from "@/lib/types";
@@ -21,7 +20,7 @@ export default async function UpdatePostPage({
   const post = data as PostRow | null;
 
   return (
-    <SiteShell>
+    <>
       <section className="home">
         <div id="login" className="text">
           <div className="container">
@@ -58,6 +57,6 @@ export default async function UpdatePostPage({
           </div>
         </div>
       </section>
-    </SiteShell>
+    </>
   );
 }

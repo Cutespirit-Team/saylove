@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
+import Link from "next/link";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import type { ProfileRow } from "@/lib/types";
@@ -21,7 +21,7 @@ export default async function ManageUserPage({
   const users = (data as ProfileRow[]) ?? [];
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -54,9 +54,9 @@ export default async function ManageUserPage({
                                 <td>{row.name}</td>
                                 <td>{row.email}</td>
                                 <td>
-                                  <a href={`/update-user?id=${row.id}`} className="btn btn-success">
+                                  <Link href={`/update-user?id=${row.id}`} className="btn btn-success">
                                     更新資料
-                                  </a>{" "}
+                                  </Link>{" "}
                                   <a href={`/api/delete-user?id=${row.id}`} className="btn btn-danger">
                                     刪除
                                   </a>
@@ -75,6 +75,6 @@ export default async function ManageUserPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

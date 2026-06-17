@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
+import Link from "next/link";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import type { ProfileRow } from "@/lib/types";
@@ -22,7 +22,7 @@ export default async function UpdateUserPage({
   const user = data as ProfileRow | null;
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -55,9 +55,9 @@ export default async function UpdateUserPage({
                       <button type="submit" className="btn btn-primary" name="update">
                         更新
                       </button>{" "}
-                      <a href="/manageuser" className="link-primary">
+                      <Link href="/manageuser" className="link-primary">
                         會員列表
-                      </a>
+                      </Link>
                     </form>
                   </div>
                 </div>
@@ -66,6 +66,6 @@ export default async function UpdateUserPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

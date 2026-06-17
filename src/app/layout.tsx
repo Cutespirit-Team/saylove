@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import SiteShell from "@/components/SiteShell";
 import "./globals.css";
 
 // 對應原 header.php 的 <head>：bootstrap.css、style.css、cutegirl.js、notice 樣式
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="/notice/css/default.min.css" />
       </head>
       <body>
-        {children}
+        {/* SiteShell（導覽列/側欄/頁尾）放在共用 layout，切換頁面時不重載、不轉圈，
+            只有頁面內容以 SSR 串流更新；導覽列上的 search 等綁定也因此持續有效。 */}
+        <SiteShell>{children}</SiteShell>
         {/* 原本由 footer.php 載入的 jQuery / Bootstrap */}
         <Script src="/jquery.js" strategy="afterInteractive" />
         <Script src="/bootstrap.js" strategy="afterInteractive" />

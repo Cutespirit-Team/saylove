@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
 import PostCard from "@/components/PostCard";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/auth";
@@ -16,8 +15,6 @@ export default async function PostsPage({
   searchParams: Promise<{ school?: string }>;
 }) {
   const { school } = await searchParams;
-  const supabase = await getSupabaseServer();
-  const profile = await getCurrentProfile();
 
   const valid = school ? await isValidSchoolName(school) : false;
   if (!valid) {
@@ -25,16 +22,16 @@ export default async function PostsPage({
   }
 
   const code = (await schoolNameToCode(school!)) ?? "";
-  const { data } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("schoolcode", code.trim())
-    .order("id", { ascending: false });
-  const posts = (data as PostRow[]) ?? [];
+  const supabase = await getSupabaseServer();
+  const [profile, postsRes] = await Promise.all([
+    getCurrentProfile(),
+    supabase.from("posts").select("*").eq("schoolcode", code.trim()).order("id", { ascending: false }),
+  ]);
+  const posts = (postsRes.data as PostRow[]) ?? [];
   const cards = await buildCards(posts, profile?.id ?? null);
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -72,6 +69,6 @@ export default async function PostsPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

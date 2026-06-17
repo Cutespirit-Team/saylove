@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
 import FlashNotice from "@/components/FlashNotice";
 import { getCurrentUser, getCurrentProfile } from "@/lib/auth";
 import { schoolCodeToName } from "@/lib/school";
@@ -24,7 +23,7 @@ export default async function UploadPostsPage({
   }
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -97,6 +96,6 @@ export default async function UploadPostsPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

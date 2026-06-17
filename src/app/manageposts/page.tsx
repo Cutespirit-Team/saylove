@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
+import Link from "next/link";
 import { getAdminProfile } from "@/lib/auth";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import type { PostRow } from "@/lib/types";
@@ -21,7 +21,7 @@ export default async function ManagePostsPage({
   const posts = (data as PostRow[]) ?? [];
 
   return (
-    <SiteShell>
+    <>
       <div className="padding">
         <div className="full col-sm-9">
           <div className="row">
@@ -56,9 +56,9 @@ export default async function ManagePostsPage({
                             <td className="text1234">{row.school}</td>
                             <td className="text1234">{row.date}</td>
                             <td className="text1234">
-                              <a href={`/update-post?id=${row.id}`} className="btn btn-success">
+                              <Link href={`/update-post?id=${row.id}`} className="btn btn-success">
                                 更新資料
-                              </a>{" "}
+                              </Link>{" "}
                               <a href={`/api/delete-post?id=${row.id}`} className="btn btn-danger">
                                 刪除
                               </a>
@@ -75,6 +75,6 @@ export default async function ManagePostsPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import SiteShell from "@/components/SiteShell";
+import Link from "next/link";
 import FlashNotice from "@/components/FlashNotice";
 
 export const dynamic = "force-dynamic";
@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 // 對應 register.php
 export default function RegisterPage() {
   return (
-    <SiteShell>
+    <>
       <Suspense fallback={null}>
         <FlashNotice />
       </Suspense>
@@ -60,7 +60,7 @@ export default function RegisterPage() {
                       </div>
                       <div className="dif">
                         <div className="forgot">
-                          <a href="/forgotpass"></a>
+                          <Link href="/forgotpass"></Link>
                           <p className="ZGwn1">
                             <span>註冊即表示你同意我們的 </span>
                             <a href="" tabIndex={0} target="_blank">
@@ -81,7 +81,7 @@ export default function RegisterPage() {
                     </div>
                     <div className="signup">
                       <p>
-                        已經有帳號嗎？ <a href="/login">登入</a>
+                        已經有帳號嗎？ <Link href="/login">登入</Link>
                       </p>
                     </div>
                   </div>
@@ -95,6 +95,6 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

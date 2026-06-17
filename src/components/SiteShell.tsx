@@ -1,4 +1,6 @@
 import Script from "next/script";
+import Link from "next/link";
+import LogoutLink from "@/components/LogoutLink";
 import { getCurrentProfile } from "@/lib/auth";
 import { getSchoolNames } from "@/lib/school";
 
@@ -90,10 +92,10 @@ export default async function SiteShell({ children }: { children: React.ReactNod
                   <span className="icon-bar"></span>
                 </button>
                 <div className="tittleimg">
-                  <a href="/">
+                  <Link href="/">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/img/-1.svg" width="250px" alt="" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <nav className="collapse navbar-collapse" role="navigation">
@@ -125,35 +127,35 @@ export default async function SiteShell({ children }: { children: React.ReactNod
 
                 <ul className="nav navbar-nav">
                   <li>
-                    <a href="/">
+                    <Link href="/">
                       <i className="glyphicon glyphicon-home"></i> 首頁
-                    </a>
+                    </Link>
                   </li>
                   {!loggedIn && (
                     <li>
-                      <a href="/login">登入</a>
+                      <Link href="/login">登入</Link>
                     </li>
                   )}
                   {loggedIn && (
                     <li>
-                      <a href="/profiles">個人資料</a>
+                      <Link href="/profiles">個人資料</Link>
                     </li>
                   )}
                   {loggedIn && (
                     <li>
-                      <a href="/upload_posts" role="button" data-toggle="modal">
+                      <Link href="/upload_posts" role="button" data-toggle="modal">
                         <i className="glyphicon glyphicon-plus"></i> 新增貼文
-                      </a>
+                      </Link>
                     </li>
                   )}
                   {isAdmin && (
                     <li>
-                      <a href="/manage">管理中心</a>
+                      <Link href="/manage">管理中心</Link>
                     </li>
                   )}
                   {loggedIn && (
                     <li>
-                      <a href="/logout">登出</a>
+                      <LogoutLink />
                     </li>
                   )}
                 </ul>
@@ -182,15 +184,15 @@ export default async function SiteShell({ children }: { children: React.ReactNod
                 <small className="text-muted">|</small>{" "}
                 <a href="https://shop.cutespirit.org">靈萌商店</a>{" "}
                 <small className="text-muted">|</small>{" "}
-                <a href="/instructions/disclaimer">免責聲明</a>{" "}
+                <Link href="/instructions/disclaimer">免責聲明</Link>{" "}
                 <small className="text-muted">|</small>{" "}
-                <a href="/instructions/policy">隱私權政策</a>{" "}
+                <Link href="/instructions/policy">隱私權政策</Link>{" "}
                 <small className="text-muted">|</small>{" "}
-                <a href="/instructions/cookie">Cookie政策</a>{" "}
+                <Link href="/instructions/cookie">Cookie政策</Link>{" "}
                 <small className="text-muted">|</small>{" "}
-                <a href="/instructions/api">API</a>{" "}
+                <Link href="/instructions/api">API</Link>{" "}
                 <small className="text-muted">|</small>{" "}
-                <a href="/instructions/terms_of_use">使用條款</a>{" "}
+                <Link href="/instructions/terms_of_use">使用條款</Link>{" "}
                 <small className="text-muted">|</small>{" "}
               </div>
             </div>

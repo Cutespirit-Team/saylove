@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
 import FlashNotice from "@/components/FlashNotice";
 import { getCurrentUser, getCurrentProfile } from "@/lib/auth";
 import { getSchools } from "@/lib/school";
@@ -28,7 +27,7 @@ export default async function ProfilesPage({
   const email = profile?.email ?? user.email ?? "";
 
   return (
-    <SiteShell>
+    <>
       <section className="home">
         <div id="login" className="text">
           <Suspense fallback={null}>
@@ -131,6 +130,6 @@ export default async function ProfilesPage({
           </div>
         </div>
       </section>
-    </SiteShell>
+    </>
   );
 }

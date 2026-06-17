@@ -1,6 +1,7 @@
 import { Suspense } from "react";
-import SiteShell from "@/components/SiteShell";
+import Link from "next/link";
 import FlashNotice from "@/components/FlashNotice";
+import LoginForm from "@/components/LoginForm";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,9 @@ export default async function LoginPage({
   searchParams: Promise<{ header?: string }>;
 }) {
   const { header } = await searchParams;
+  const chatUrl = process.env.CHAT_URL || "https://chat.cutespirit.org/";
   return (
-    <SiteShell>
+    <>
       <Suspense fallback={null}>
         <FlashNotice />
       </Suspense>
@@ -35,20 +37,7 @@ export default async function LoginPage({
                         <h4>{header ? "登入才可以使用聊天功能優!" : ""}</h4>
                       </center>
                       <div className="form">
-                        <form action="/api/checklogin" method="post">
-                          <div className="input_field">
-                            <input type="email" placeholder="電子郵件" name="email" className="input" />
-                          </div>
-                          <div className="input_field">
-                            <input type="password" placeholder="密碼" name="password" className="input" />
-                          </div>
-                          <div className="input_field">
-                            <input type="hidden" name="header" className="input" defaultValue={header ?? ""} />
-                          </div>
-                          <button className="btn_love" type="submit">
-                            登入
-                          </button>
-                        </form>
+                        <LoginForm header={header} chatUrl={chatUrl} />
                       </div>
                       <div className="or">
                         <div className="line"></div>
@@ -57,13 +46,13 @@ export default async function LoginPage({
                       </div>
                       <div className="dif">
                         <div className="forgot">
-                          <a href="/forgotpass">忘記密碼?</a>
+                          <Link href="/forgotpass">忘記密碼?</Link>
                         </div>
                       </div>
                     </div>
                     <div className="signup">
                       <p>
-                        還沒有帳號嗎? <a href="/register">註冊</a>
+                        還沒有帳號嗎? <Link href="/register">註冊</Link>
                       </p>
                     </div>
                   </div>
@@ -76,6 +65,6 @@ export default async function LoginPage({
           </div>
         </div>
       </div>
-    </SiteShell>
+    </>
   );
 }

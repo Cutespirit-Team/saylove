@@ -1,4 +1,3 @@
-import SiteShell from "@/components/SiteShell";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +11,7 @@ export default async function ForgotPassVerifyPage({
   const { error, success } = await searchParams;
 
   return (
-    <SiteShell>
+    <>
       <div className="container">
         <form action="/api/forgot-p-verify" method="post">
           <h4 className="display-4 text-center">設定新密碼</h4>
@@ -48,6 +47,6 @@ export default async function ForgotPassVerifyPage({
           </button>
         </form>
       </div>
-    </SiteShell>
+    </>
   );
 }

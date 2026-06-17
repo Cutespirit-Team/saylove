@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import SiteShell from "@/components/SiteShell";
 import { getCurrentUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +14,7 @@ export default async function ForgotPassPage({
   if (user) redirect("/");
 
   return (
-    <SiteShell>
+    <>
       <div className="container">
         <form action="/api/forgot-p" method="post">
           <h4 className="display-4 text-center">忘記密碼</h4>
@@ -35,6 +34,6 @@ export default async function ForgotPassPage({
           </button>
         </form>
       </div>
-    </SiteShell>
+    </>
   );
 }

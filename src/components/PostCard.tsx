@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { PostRow, MessageRow, ProfileRow } from "@/lib/types";
 import { DEFAULT_AVATAR } from "./defaultAvatar";
 import CopyLinkButton from "./CopyLinkButton";
@@ -52,7 +53,7 @@ export default function PostCard({
                 {post.writer}
                 <br />
                 <span>
-                  <a href={`/posts?school=${post.school}`}>{post.school}</a>
+                  <Link href={`/posts?school=${post.school}`}>{post.school}</Link>
                 </span>
               </h3>
             </div>

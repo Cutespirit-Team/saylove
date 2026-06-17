@@ -29,6 +29,27 @@
   display: flex;
   flex-direction: column;
 }
+
+/* 手機版：隱藏裝飾用的左側欄（範本佔位連結），內容滿版,避免被擠壓 */
+@media (max-width: 767px) {
+  #sidebar {
+    display: none !important;
+  }
+  #main {
+    width: 100% !important;
+    float: none !important;
+  }
+  /* 展開的下拉選單要有底色 + 蓋在內容之上(否則選單項目會變透明疊在貼文上) */
+  .navbar-blue {
+    z-index: 1030;
+  }
+  .navbar-blue .navbar-collapse {
+    background-color: #c1bcf1;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    padding-bottom: 8px;
+  }
+}
 .site-content {
   flex: 1 0 auto;
 }

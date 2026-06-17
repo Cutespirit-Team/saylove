@@ -45,7 +45,21 @@ export default async function ManagePostsPage() {
                             <td className="text1234">{row.writer}</td>
                             <td className="text1234">{row.sentence}</td>
                             <td className="text1234">{row.school}</td>
-                            <td className="text1234">{row.date}</td>
+                            <td className="text1234">
+                              {(() => {
+                                const parts = (row.date ?? "").split("|");
+                                const ip = parts[0] ?? "";
+                                const time = parts[1] ?? "";
+                                const ua = parts.slice(2).join("|");
+                                return (
+                                  <div style={{ fontSize: "12px", lineHeight: 1.5, maxWidth: "280px", wordBreak: "break-word" }}>
+                                    <div>IP：{ip || "—"}</div>
+                                    <div>時間：{time || "—"}</div>
+                                    <div>設備：{ua || "—"}</div>
+                                  </div>
+                                );
+                              })()}
+                            </td>
                             <td className="text1234">
                               <Link href={`/update-post?id=${row.id}`} className="btn btn-success">
                                 更新資料

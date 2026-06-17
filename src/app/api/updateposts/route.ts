@@ -35,11 +35,15 @@ export async function POST(req: NextRequest) {
   if (!schoolcode || !school)
     return NextResponse.json({ ok: false, message: "請先到個人資料選擇學校" }, { status: 400 });
 
+  // 在 Cloudflare 後面時 cf-connecting-ip 最準確
   const ip =
+    req.headers.get("cf-connecting-ip") ||
     req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     req.headers.get("x-real-ip") ||
     "unknown";
-  const postdetails = `${ip}|${dateYmdHis()}|`;
+  const ua = req.headers.get("user-agent") || "unknown";
+  // 詳情格式：IP|時間|設備(User-Agent)
+  const postdetails = `${ip}|${dateYmdHis()}|${ua}`;
 
   const { error } = await supabase.from("posts").insert({
     author_id: user.id,

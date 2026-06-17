@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { postForm } from "@/lib/clientApi";
 import { showToast } from "@/lib/toast";
+import { cardClass, fieldClass, labelClass, inputClass, primaryBtnClass, cardTitleClass } from "@/lib/uiClasses";
 
 // 變更密碼：前端送出,不重載。
 export default function ChangePasswordForm() {
@@ -20,22 +21,23 @@ export default function ChangePasswordForm() {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2 className="sub_title">變更密碼</h2>
-      <div className="form-group">
-        <label>舊密碼</label>
-        <input type="password" className="label_name" name="op" placeholder="Old Password" />
+    <form onSubmit={onSubmit} className={cardClass}>
+      <h2 className={cardTitleClass}>變更密碼</h2>
+      <p className="tw-m-0 tw-mb-4 tw-text-[13px] tw-text-[#999]">密碼長度需介於 8~16 字。</p>
+      <div className={fieldClass}>
+        <label className={labelClass}>舊密碼</label>
+        <input type="password" className={inputClass} name="op" placeholder="輸入目前的密碼" />
       </div>
-      <div className="form-group">
-        <label>新密碼</label>
-        <input type="password" className="label_name" name="np" placeholder="New Password" />
+      <div className={fieldClass}>
+        <label className={labelClass}>新密碼</label>
+        <input type="password" className={inputClass} name="np" placeholder="輸入新密碼" />
       </div>
-      <div className="form-group">
-        <label>確認新密碼</label>
-        <input type="password" className="label_name" name="c_np" placeholder="Confirm New Password" />
+      <div className={fieldClass}>
+        <label className={labelClass}>確認新密碼</label>
+        <input type="password" className={inputClass} name="c_np" placeholder="再輸入一次新密碼" />
       </div>
-      <button type="submit" className="btn btn-primary" name="change-p" disabled={busy}>
-        變更密碼
+      <button type="submit" className={primaryBtnClass} name="change-p" disabled={busy}>
+        {busy ? "處理中…" : "變更密碼"}
       </button>
     </form>
   );

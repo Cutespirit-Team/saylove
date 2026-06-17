@@ -22,28 +22,23 @@ export default async function ProfilesPage() {
   const email = profile?.email ?? user.email ?? "";
 
   return (
-    <section className="home">
-      <div id="login" className="text">
-        {!profile && "沒有您的資料，請聯繫管理員"}
-        <div className="padding">
-          <div className="full col-sm-9">
-            <div className="row">
-              <div className="col-sm-5">
-                <div className="container">
-                  <ProfileForm
-                    name={profile?.name ?? ""}
-                    email={email}
-                    genderDefault={genderDefault}
-                    schoolDefault={schoolDefault}
-                    schools={schools}
-                  />
-                </div>
-                <ChangePasswordForm />
-              </div>
-            </div>
-          </div>
+    // .full 提供 padding-top:70px,避開固定的導覽列
+    <div className="full">
+      <div className="tw-flex tw-justify-center tw-px-4 tw-pb-10">
+        <div className="tw-w-full tw-max-w-[480px]">
+          {!profile && (
+            <div className="tw-mb-4 tw-text-center tw-text-[#c0392b]">沒有您的資料，請聯繫管理員</div>
+          )}
+          <ProfileForm
+            name={profile?.name ?? ""}
+            email={email}
+            genderDefault={genderDefault}
+            schoolDefault={schoolDefault}
+            schools={schools}
+          />
+          <ChangePasswordForm />
         </div>
       </div>
-    </section>
+    </div>
   );
 }

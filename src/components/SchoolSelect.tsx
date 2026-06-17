@@ -8,10 +8,12 @@ export default function SchoolSelect({
   name,
   schools,
   defaultCode,
+  inputClassName = "label_name",
 }: {
   name: string;
   schools: SchoolEntry[];
   defaultCode: string;
+  inputClassName?: string;
 }) {
   const initialName = useMemo(() => {
     const found = schools.find((s) => s.code === defaultCode);
@@ -39,7 +41,7 @@ export default function SchoolSelect({
       <input type="hidden" name={name} value={code} />
       <input
         type="text"
-        className="label_name"
+        className={inputClassName}
         value={query}
         placeholder="輸入高中名稱搜尋…"
         autoComplete="off"

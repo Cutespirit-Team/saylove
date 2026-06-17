@@ -24,8 +24,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# local env files
+# local env files —— 含 Supabase service_role 等機密，務必不要進版控
+.env
 .env*.local
 
 # vercel
@@ -34,4 +36,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editors / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+
+# Supabase CLI（若日後使用本地 CLI；schema.sql 仍會進版控）
+/supabase/.temp/
+/supabase/.branches/
 
